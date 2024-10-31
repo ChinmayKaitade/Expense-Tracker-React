@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core";
 import Details from "./components/Details/Details";
 
 import useStyles from "./styles";
+import Main from "./components/Main/Main";
 
 const App = () => {
   const classes = useStyles();
@@ -18,13 +19,13 @@ const App = () => {
         style={{ height: "100vh" }}
       >
         {/* Income Container */}
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={3}>
           <Details title="Income" />
         </Grid>
 
         {/* Main Container */}
         <Grid item xs={12} sm={4}>
-          Main
+          <Main />
         </Grid>
 
         {/* Expense Container */}
