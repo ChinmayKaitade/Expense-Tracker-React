@@ -17,6 +17,11 @@ import { v4 as uuidv4 } from "uuid";
 
 import useStyles from "./styles";
 
+import {
+  incomeCategories,
+  expenseCategories,
+} from "../../../constants/categories";
+
 const initialState = {
   amount: "",
   category: "",
@@ -44,6 +49,10 @@ const Form = () => {
     addTransaction(transaction);
     setFormData(initialState);
   };
+
+  // Categories Logic
+  const selectedCategories =
+    formData.type === "Income" ? incomeCategories : expenseCategories;
 
   return (
     <div>
@@ -78,8 +87,11 @@ const Form = () => {
                 setFormData({ ...formData, category: e.target.value })
               }
             >
-              <MenuItem value="business">Business</MenuItem>
-              <MenuItem value="salary">Salary</MenuItem>
+              {selectedCategories.map((category) => (
+                <MenuItem key={category.type} value={category.type}>
+                  {category.type}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
