@@ -10,6 +10,11 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
+import { ExpenseTrackerContext } from "../../../context/context";
+import { useContext } from "react";
+
+import { v4 as uuidv4 } from "uuid";
+
 import useStyles from "./styles";
 
 const initialState = {
@@ -22,8 +27,23 @@ const initialState = {
 const Form = () => {
   const classes = useStyles();
 
+  // Step3 - Accepting Dispatch Function into Component and then actually calling them
   const [formData, setFormData] = useState(initialState);
-  console.log(formData);
+  const { addTransaction } = useContext(ExpenseTrackerContext);
+
+  // console.log(formData);
+
+  const createTransaction = () => {
+    const transaction = {
+      ...formData,
+      amount: Number(formData.amount),
+      id: uuidv4(),
+    };
+
+    // logic for creating transaction
+    addTransaction(transaction);
+    setFormData(initialState);
+  };
 
   return (
     <div>
@@ -90,6 +110,7 @@ const Form = () => {
           variant="outlined"
           color="primary"
           fullWidth
+          onClick={createTransaction}
         >
           Create
         </Button>
