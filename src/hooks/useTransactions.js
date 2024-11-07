@@ -1,25 +1,26 @@
 import { useContext } from "react";
-import { ExpenseTrackerContext } from "../context/context";
-
 import {
-  incomeCategories,
   expenseCategories,
+  incomeCategories,
   resetCategories,
 } from "../constants/categories";
+import { ExpenseTrackerContext } from "../context/context";
 
 const useTransactions = (title) => {
   resetCategories();
-
   const { transactions } = useContext(ExpenseTrackerContext);
-  const transactionPerTime = transactions.filter((t) => t.type === title);
-  const total = transactionPerTime.reduce(
-    (acc, currVal) => ((acc += currVal.amount), 0)
+
+  const transactionPerType = transactions.filter((t) => t.type === title);
+  const total = transactionPerType.reduce(
+    (acc, currVal) => acc + currVal.amount,
+    0
   );
+
   const categories = title === "Income" ? incomeCategories : expenseCategories;
 
-  console.log({ transactionPerTime, total, categories });
+  console.log({ transactionPerType, total, categories });
 
-  transactionPerTime.forEach((t) => {
+  transactionPerType.forEach((t) => {
     const category = categories.find((c) => c.type === t.category);
 
     if (category) category.amount += t.amount;

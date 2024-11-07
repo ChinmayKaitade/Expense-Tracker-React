@@ -2,8 +2,8 @@ const formatDate = (date) => {
   // checking it must be a date object
   const d = new Date(date);
   let month = `${d.getMonth() + 1}`;
-  const day = `${d.getDate()}`;
-  const year = d.getFullYear();
+  let day = `${d.getDate()}`;
+  let year = d.getFullYear();
 
   // checking it must be 2 digit
   if (month.length < 2) {
